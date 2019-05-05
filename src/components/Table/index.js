@@ -4,15 +4,22 @@ import { SortableContainer } from 'react-sortable-hoc'
 import Card from '../Card'
 import { taskContext } from '../../context'
 
-import { Container, ContainerScroll } from './styles'
+import {
+  Container,
+  ContainerScroll,
+  UnorderedList,
+  CreateButtonContainer,
+  CreateButton,
+  Title
+} from './styles'
 
 const SortableList = SortableContainer(({items}) => {
   return (
-    <ul>
+    <UnorderedList>
       {items.map((value, index) => (
         <Card key={`current-${index}`} index={index} value={value} />
       ))}
-    </ul>
+    </UnorderedList>
   );
 });
 
@@ -21,10 +28,19 @@ const Table = () => {
 
   return (
     <Container>
+      <Title>
+        <div style={{ padding: '0 10px' }}>
+          Current
+        </div>
+      </Title>
       <ContainerScroll>
-      <button onClick={addTask}>Add Card</button>
         <SortableList useDragHandle={true} items={current} onSortEnd={sortTask} />
       </ContainerScroll>
+      <CreateButtonContainer onClick={addTask}>
+        <CreateButton>
+          + Add Card
+        </CreateButton>
+      </CreateButtonContainer>
     </Container>
   )
 }
