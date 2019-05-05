@@ -1,15 +1,19 @@
 import React, { useContext } from 'react'
 
 import { taskContext } from '../../context'
+import { SortableElement, sortableHandle } from 'react-sortable-hoc'
 
-const Card = () => {
+const DragHandle = sortableHandle(() => <span>::</span>)
+
+const Card = ({ value, index }) => {
   const { removeTask } = useContext(taskContext)
   return (
-    <>
-      <div>This is Card</div>
-      <button onClick={removeTask}>Remove Task</button>
-    </>
+    <li>
+      <DragHandle />
+      {value}
+      <button onClick={() => removeTask(index)}>Remove Task</button>
+    </li>
   )
 }
 
-export default Card
+export default SortableElement(Card)
