@@ -11,7 +11,7 @@ export const ContainerWrapper = styled.div`
 `
 
 export const ContainerContent = styled.div`
-  max-width: 800px;
+  max-width: 900px;
   height: 100%;
   margin: 0 auto;
 `

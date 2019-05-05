@@ -42,7 +42,7 @@ export const Icon = styled.img`
   }
 `
 
-export const FinishButton = styled.button`
+export const DoneButton = styled.button`
   background-color: #000;
   color: #fff;
   border-radius: 6px;
@@ -53,5 +53,9 @@ export const FinishButton = styled.button`
   &:hover {
     transform: scale(0.8);
     cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
   }
 `

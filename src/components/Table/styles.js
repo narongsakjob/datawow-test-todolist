@@ -13,6 +13,7 @@ export const Title = styled.h1`
   height: 45px;
   width: 100%;
   background-color: #dfe1e6;
+  border-radius: 6px 6px 0 0;
 `
 
 export const ContainerScroll = styled.div`
@@ -23,7 +24,6 @@ export const ContainerScroll = styled.div`
   width: 100%;
   overflow-y: scroll;
   background-color: #dfe1e6;
-  border-radius: 3px;
 `
 
 export const CreateButtonContainer = styled.div`
@@ -34,6 +34,7 @@ export const CreateButtonContainer = styled.div`
   width: 100%;
   background-color: #dfe1e6;
   padding: 10px 0;
+  border-radius: 0 0 6px 6px;
 
   &:hover {
     cursor: pointer;

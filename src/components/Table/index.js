@@ -24,17 +24,25 @@ const SortableList = SortableContainer(({items}) => {
 });
 
 const Table = () => {
-  const { current, addTask, sortTask } = useContext(taskContext)
+  const { current, done, addTask, sortTask, status } = useContext(taskContext)
 
   return (
     <Container>
       <Title>
         <div style={{ padding: '0 10px' }}>
-          Current
+          { status }
         </div>
       </Title>
       <ContainerScroll>
-        <SortableList useDragHandle={true} items={current} onSortEnd={sortTask} />
+        <SortableList
+          useDragHandle={true}
+          items={
+            status === 'Current' ?
+            current :
+            done
+          }
+          onSortEnd={sortTask}
+        />
       </ContainerScroll>
       <CreateButtonContainer onClick={addTask}>
         <CreateButton>

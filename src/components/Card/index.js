@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { SortableElement, sortableHandle } from 'react-sortable-hoc'
 
+import { Confirm } from '../Modal'
 import { taskContext } from '../../context'
 import menu from '../../images/menu.svg'
 import edit from '../../images/edit.svg'
@@ -10,23 +11,53 @@ import {
   List,
   Menu,
   Item,
-  FinishButton,
+  DoneButton,
   Icon
 } from './styles'
 
 const DragHandle = sortableHandle(() => <Menu src={menu} alt='menu' />)
 
 const Card = ({ value, index }) => {
-  const { removeTask } = useContext(taskContext)
+  const { removeTask, moveTask, status } = useContext(taskContext)
+  const [isModal, setModal] = useState(false)
+  const [title, setTitle] = useState('')
+  const [type, setType] = useState('')
+
+  const toggleModal = () => {
+    setModal(!isModal)
+  }
+
+  const onClickDelete = () => {
+    toggleModal()
+    setTitle(`Do you want to delete this task ?`)
+    setType('delete')
+  } 
+
+  const onClickDone = () => {
+    toggleModal()
+    setTitle(`Do you want to move this task to done ?`)
+    setType('done')
+  }
+
   return (
     <List>
       <Item column={1}><DragHandle /></Item>
       <Item column={8}>{value}</Item>
       <Item column={3} align={'flex-end'}>
         <Icon src={edit} alt='edit' />
-        <Icon src={trash} alt='trash' onClick={() => removeTask(index)} />
-        <FinishButton onClick={() => console.log('Finish')}>Finish</FinishButton>
+        <Icon src={trash} alt='trash' onClick={onClickDelete} />
+        <DoneButton onClick={onClickDone}>{status === 'Current' ? 'Done' : 'Cancel'}</DoneButton>
       </Item>
+      {
+        isModal ?
+        <Confirm
+          title={title}
+          type={status.toLowerCase()}
+          index={index}
+          toggle={toggleModal}
+          eventFunc={type === 'done' ? moveTask : removeTask}
+        /> : ''
+      }
     </List>
   )
 }
