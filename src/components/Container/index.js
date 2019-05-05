@@ -4,15 +4,21 @@ import Progress from '../Progress'
 import Toggle from '../Toggle'
 import Table from '../Table'
 
-const Container = () => {
+import { Container, ContainerWrapper, ContainerContent, Title } from './styles'
+
+const Component = () => {
   return (
-    <>
-      <div>Title</div>
-      <Progress />
-      <Toggle />
-      <Table />
-    </>
+    <Container>
+      <ContainerWrapper>  
+        <ContainerContent>
+          <Title>To Do List</Title>
+          <Progress />
+          <Toggle />
+          <Table />
+        </ContainerContent>
+      </ContainerWrapper>
+    </Container>
   )
 }
 
-export default Container
+export default Component
