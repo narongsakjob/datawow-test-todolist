@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 const ContainerWrapper = styled.div`
@@ -61,18 +61,18 @@ const Button = styled.button`
   }
 `
 
-const Input = styled.input`
-  display: block;
-  margin: 20px auto;
-  border-width: 0 0 4px 0;
-  text-align: center;
-  color: #8a8a8a;
-  font-size: 25px;
-  padding: 3px 30px;
-  &:focus {
-    outline: none;
-  }
-`
+// const Input = styled.input`
+//   display: block;
+//   margin: 20px auto;
+//   border-width: 0 0 4px 0;
+//   text-align: center;
+//   color: #8a8a8a;
+//   font-size: 25px;
+//   padding: 3px 30px;
+//   &:focus {
+//     outline: none;
+//   }
+// `
 
 // export class ModalEdit extends Component {
 //   constructor(props) {
@@ -130,18 +130,16 @@ const Input = styled.input`
 //   }
 // }
 
-export default class Confirm extends Component {
-  componentDidMount = () => {
-    document.addEventListener('keydown', this.keyFunction, false)
-  }
+const Confirm = ({ title='Confirm ?', toggle, index, eventFunc, type }) => {
+  useEffect(() => {
+    document.addEventListener('keydown', keyFunction, false)
 
-  componentWillUnmount = () => {
-    document.removeEventListener('keydown', this.keyFunction, false)
-  }
+    return () => {
+      document.removeEventListener('keydown', keyFunction, false)
+    }
+  });
 
-  keyFunction = event => {
-    const { toggle, index, type, eventFunc } = this.props
-
+  const keyFunction = event => {
     if (event.keyCode === 27) {
       toggle()
     } else if (event.keyCode === 13) {
@@ -152,29 +150,26 @@ export default class Confirm extends Component {
     event.preventDefault()
   }
 
-  onClickConfirm = () => {
-    const { toggle, index, eventFunc } = this.props
-    // eventFunc(index)
+  const onClickConfirm = () => {
+    eventFunc({ index, type })
     toggle()
   }
 
-  render() {
-    const { title='Confirm ?', toggle } = this.props
-
-    return (
-      <ContainerWrapper>
-        <Container>
-          <Body>
-            <Title>{title}</Title>
-            <Button onClick={this.onClickConfirm} type="button">
-              Confirm
-            </Button>
-            <Button onClick={toggle} type="button">
-              Cancel
-            </Button>
-          </Body>
-        </Container>
-      </ContainerWrapper>
-    )
-  }
+  return (
+    <ContainerWrapper>
+      <Container>
+        <Body>
+          <Title>{title}</Title>
+          <Button onClick={onClickConfirm} type="button">
+            Confirm
+          </Button>
+          <Button onClick={toggle} type="button">
+            Cancel
+          </Button>
+        </Body>
+      </Container>
+    </ContainerWrapper>
+  )
 }
+
+export default Confirm

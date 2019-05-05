@@ -5,7 +5,6 @@ import { taskReducer } from './taskReducer'
 const initialState = {
   current: [],
   done: [],
-  progress: 0,
   status: 'Current'
 }
 

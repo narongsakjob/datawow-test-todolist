@@ -28,15 +28,19 @@ const Card = ({ value, index }) => {
   }
 
   const onClickDelete = () => {
-    toggleModal()
     setTitle(`Do you want to delete this task ?`)
     setType('delete')
+    toggleModal()
   } 
 
   const onClickDone = () => {
-    toggleModal()
-    setTitle(`Do you want to move this task to done ?`)
+    if (status === 'Current') {
+      setTitle(`Do you want to move this task to done ?`)
+    } else {
+      setTitle(`Do you want to cancel this task from done ?`)
+    }
     setType('done')
+    toggleModal()
   }
 
   return (
