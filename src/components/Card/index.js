@@ -3,6 +3,8 @@ import { SortableElement, sortableHandle } from 'react-sortable-hoc'
 
 import { Confirm, Form } from '../Modal'
 import { taskContext } from '../../context'
+import accept from '../../images/accept.svg'
+import reject from '../../images/reject.svg'
 import menu from '../../images/menu.svg'
 import edit from '../../images/edit.svg'
 import trash from '../../images/trash.svg'
@@ -11,7 +13,6 @@ import {
   List,
   Menu,
   Item,
-  DoneButton,
   Icon
 } from './styles'
 
@@ -50,12 +51,16 @@ const Card = ({ value, index }) => {
 
   return (
     <List>
-      <Item column={1}><DragHandle /></Item>
-      <Item column={8}>{value}</Item>
-      <Item column={3} align={'flex-end'}>
+      <Item column={1} xs={2}><DragHandle /></Item>
+      <Item column={8} xs={7}>{value}</Item>
+      <Item column={3} align={'flex-end'} xs={3}>
         <Icon src={edit} alt='edit' onClick={toggleModalForm} />
         <Icon src={trash} alt='trash' onClick={onClickDelete} />
-        <DoneButton onClick={onClickMove}>{status === 'Current' ? 'Done' : 'Cancel'}</DoneButton>
+        {
+          status === 'Current' ?
+          <Icon src={accept} alt='accept' onClick={onClickMove} /> :
+          <Icon src={reject} alt='reject' onClick={onClickMove} />
+        }
       </Item>
       {
         isOpenConfirm ?

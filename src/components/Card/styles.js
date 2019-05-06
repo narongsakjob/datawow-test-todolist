@@ -15,6 +15,8 @@ export const List = styled.li`
 
 export const Menu = styled.img`
   cursor: ns-resize;
+  padding: 0 5px;
+  width: 24px;
 `
 
 const ItemContainer = styled.div`
@@ -26,18 +28,28 @@ const ItemContainer = styled.div`
   padding: 0 10px;
 `
 
-export const Item = ({ children, column, align='flex-start' }) => (
-  <ItemContainer style= {{ flex: `0 0 ${column/12 * 100}%`, maxWidth: `${column/12*100}%`, justifyContent: align }}>
-    {children}
-  </ItemContainer>
-)
+export const Item = ({ children, column, xs, align='flex-start' }) => {
+  let percentCol
+  if (window.innerWidth <= 450) {
+    percentCol = xs/12 * 100
+  } else {
+    percentCol = column/12 * 100
+  }
+
+  return(
+    <ItemContainer style= {{ flex: `0 0 ${percentCol}%`, maxWidth: `${percentCol}%`, justifyContent: align }}>
+      {children}
+    </ItemContainer>
+  )
+}
 
 export const Icon = styled.img`
-  margin-right: 10px;
+  padding: 0 5px;
+  width: 24px;
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    transform: scale(0.8);
+    transform: scale(1.2);
     cursor: pointer;
   }
 `
@@ -51,7 +63,7 @@ export const DoneButton = styled.button`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    transform: scale(0.8);
+    transform: scale(1.2);
     cursor: pointer;
   }
 

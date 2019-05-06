@@ -10,6 +10,10 @@ export const ContainerWrapper = styled.div`
   margin: 0 auto;
 `
 
+export const ContainerHeader = styled.div`
+  padding: 0 15px;
+`
+
 export const ContainerContent = styled.div`
   max-width: 900px;
   height: 100%;

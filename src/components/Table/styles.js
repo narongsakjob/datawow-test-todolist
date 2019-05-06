@@ -24,6 +24,10 @@ export const ContainerScroll = styled.div`
   width: 100%;
   overflow-y: scroll;
   background-color: #dfe1e6;
+
+  @media (max-width: 425px) {
+    height: calc(100% - 195px);
+  }
 `
 
 export const CreateButtonContainer = styled.div`
@@ -39,6 +43,13 @@ export const CreateButtonContainer = styled.div`
   &:hover {
     cursor: pointer;
     opacity: 0.7;
+  }
+
+  @media (max-width: 425px) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
   }
 `
 
