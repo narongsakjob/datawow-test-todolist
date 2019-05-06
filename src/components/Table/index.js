@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { SortableContainer } from 'react-sortable-hoc'
 
 import Card from '../Card'
@@ -25,6 +25,14 @@ const SortableList = SortableContainer(({items}) => {
 
 const Table = () => {
   const { current, done, addTask, sortTask, status } = useContext(taskContext)
+  const containerRef = useRef(null);
+
+  const onClickAddTask = async ()  => {
+    await addTask()
+    if (containerRef.current.scrollHeight > 440) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight + 50;
+    }
+  }
 
   return (
     <Container>
@@ -33,7 +41,7 @@ const Table = () => {
           { status }
         </div>
       </Title>
-      <ContainerScroll>
+      <ContainerScroll ref={containerRef}>
         <SortableList
           useDragHandle={true}
           items={
@@ -44,7 +52,13 @@ const Table = () => {
           onSortEnd={sortTask}
         />
       </ContainerScroll>
-      <CreateButtonContainer onClick={addTask}>
+      <CreateButtonContainer
+        onClick={onClickAddTask}
+        style={status === 'Done' ?
+          { pointerEvents: "none", opacity: "0.4" } :
+          {}
+        }
+      >
         <CreateButton>
           + Add Card
         </CreateButton>

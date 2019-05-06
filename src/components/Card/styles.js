@@ -14,7 +14,7 @@ export const List = styled.li`
 `
 
 export const Menu = styled.img`
-  cursor: pointer;
+  cursor: ns-resize;
 `
 
 const ItemContainer = styled.div`
