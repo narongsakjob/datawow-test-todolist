@@ -1,7 +1,8 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { SortableContainer } from 'react-sortable-hoc'
 
 import Card from '../Card'
+import { Form } from '../Modal'
 import { taskContext } from '../../context'
 
 import {
@@ -26,9 +27,14 @@ const SortableList = SortableContainer(({items}) => {
 const Table = () => {
   const { current, done, addTask, sortTask, status } = useContext(taskContext)
   const containerRef = useRef(null);
+  const [isOpenForm, setOpenisOpenForm] = useState(false)
 
-  const onClickAddTask = async ()  => {
-    await addTask()
+  const toggleModal = () => {
+    setOpenisOpenForm(!isOpenForm)
+  }
+
+  const onClickAddTask = async ({ input })  => {
+    await addTask({ input })
     if (containerRef.current.scrollHeight > 440) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight + 50;
     }
@@ -53,7 +59,7 @@ const Table = () => {
         />
       </ContainerScroll>
       <CreateButtonContainer
-        onClick={onClickAddTask}
+        onClick={toggleModal}
         style={status === 'Done' ?
           { pointerEvents: "none", opacity: "0.4" } :
           {}
@@ -63,6 +69,14 @@ const Table = () => {
           + Add Card
         </CreateButton>
       </CreateButtonContainer>
+      {
+        isOpenForm ?
+        <Form
+          toggle={toggleModal}
+          eventFunc={onClickAddTask}
+        /> :
+        null
+      }
     </Container>
   )
 }

@@ -1,15 +1,15 @@
 import arrayMove from 'array-move'
 
-const addTask = (state, title) => {
+const addTask = (state, { input }) => {
   let tempCurrent = state.current
-  tempCurrent.push(`${title}-${tempCurrent.length}`)
-  return { ...state, current: tempCurrent, progress: state.progress + 1 }
+  tempCurrent.push(input)
+  return { ...state, current: tempCurrent }
 }
 
 const removeTask = (state, { type, index }) => {
-  let tempCurrent = state[type]
-  tempCurrent.splice(index, 1)
-  return { ...state, current: tempCurrent, progress: state.progress - 1 }
+  let temp = state[type]
+  temp.splice(index, 1)
+  return { ...state, [type]: temp }
 }
 
 const moveTask = (state, { type, index }) => {

@@ -1,3 +1,4 @@
-import Confirm from './confirm'
+import Confirm from './Confirm'
+import Form from './Form'
 
-export { Confirm }
+export { Confirm, Form }

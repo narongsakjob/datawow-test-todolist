@@ -11,7 +11,7 @@ const initialState = {
 const GlobalState = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState)
 
-  const addTask = () => dispatch({ type: 'addTask', payload: 'test' })
+  const addTask = payload => dispatch({ type: 'addTask', payload: payload })
   const removeTask = payload => dispatch({ type: 'removeTask', payload: payload })
   const sortTask = payload => dispatch({ type: 'sortTask', payload: payload })
   const toggleStatus = () => dispatch({ type: 'toggleStatus' })

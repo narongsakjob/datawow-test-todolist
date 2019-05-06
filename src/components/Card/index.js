@@ -19,12 +19,12 @@ const DragHandle = sortableHandle(() => <Menu src={menu} alt='menu' />)
 
 const Card = ({ value, index }) => {
   const { removeTask, moveTask, status } = useContext(taskContext)
-  const [isModal, setModal] = useState(false)
+  const [isOpenConfirm, setOpenConfirm] = useState(false)
   const [title, setTitle] = useState('')
   const [type, setType] = useState('')
 
   const toggleModal = () => {
-    setModal(!isModal)
+    setOpenConfirm(!isOpenConfirm)
   }
 
   const onClickDelete = () => {
@@ -53,14 +53,14 @@ const Card = ({ value, index }) => {
         <DoneButton onClick={onClickDone}>{status === 'Current' ? 'Done' : 'Cancel'}</DoneButton>
       </Item>
       {
-        isModal ?
+        isOpenConfirm ?
         <Confirm
           title={title}
           type={status.toLowerCase()}
           index={index}
           toggle={toggleModal}
           eventFunc={type === 'done' ? moveTask : removeTask}
-        /> : ''
+        /> : null
       }
     </List>
   )
