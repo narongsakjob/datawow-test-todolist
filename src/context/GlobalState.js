@@ -16,7 +16,7 @@ const GlobalState = ({ children }) => {
   const sortTask = payload => dispatch({ type: 'sortTask', payload: payload })
   const toggleStatus = () => dispatch({ type: 'toggleStatus' })
   const moveTask = payload => dispatch({ type: 'moveTask', payload: payload })
-
+  const editTask = payload => dispatch({ type: 'editTask', payload: payload })
 
   return (
     <TaskContext.Provider value={{
@@ -25,6 +25,7 @@ const GlobalState = ({ children }) => {
       sortTask,
       toggleStatus,
       moveTask,
+      editTask,
       ...state, 
     }}>
       {children}

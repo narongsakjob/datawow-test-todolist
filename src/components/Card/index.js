@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { SortableElement, sortableHandle } from 'react-sortable-hoc'
 
-import { Confirm } from '../Modal'
+import { Confirm, Form } from '../Modal'
 import { taskContext } from '../../context'
 import menu from '../../images/menu.svg'
 import edit from '../../images/edit.svg'
@@ -18,29 +18,34 @@ import {
 const DragHandle = sortableHandle(() => <Menu src={menu} alt='menu' />)
 
 const Card = ({ value, index }) => {
-  const { removeTask, moveTask, status } = useContext(taskContext)
+  const { removeTask, moveTask, editTask, status } = useContext(taskContext)
   const [isOpenConfirm, setOpenConfirm] = useState(false)
   const [title, setTitle] = useState('')
   const [type, setType] = useState('')
+  const [isOpenForm, setOpenForm] = useState(false)
 
-  const toggleModal = () => {
+  const toggleModalConfirm = () => {
     setOpenConfirm(!isOpenConfirm)
+  }
+
+  const toggleModalForm = () => {
+    setOpenForm(!isOpenForm)
   }
 
   const onClickDelete = () => {
     setTitle(`Do you want to delete this task ?`)
     setType('delete')
-    toggleModal()
+    toggleModalConfirm()
   } 
 
-  const onClickDone = () => {
+  const onClickMove = () => {
     if (status === 'Current') {
       setTitle(`Do you want to move this task to done ?`)
     } else {
       setTitle(`Do you want to cancel this task from done ?`)
     }
-    setType('done')
-    toggleModal()
+    setType('move')
+    toggleModalConfirm()
   }
 
   return (
@@ -48,9 +53,9 @@ const Card = ({ value, index }) => {
       <Item column={1}><DragHandle /></Item>
       <Item column={8}>{value}</Item>
       <Item column={3} align={'flex-end'}>
-        <Icon src={edit} alt='edit' />
+        <Icon src={edit} alt='edit' onClick={toggleModalForm} />
         <Icon src={trash} alt='trash' onClick={onClickDelete} />
-        <DoneButton onClick={onClickDone}>{status === 'Current' ? 'Done' : 'Cancel'}</DoneButton>
+        <DoneButton onClick={onClickMove}>{status === 'Current' ? 'Done' : 'Cancel'}</DoneButton>
       </Item>
       {
         isOpenConfirm ?
@@ -58,8 +63,18 @@ const Card = ({ value, index }) => {
           title={title}
           type={status.toLowerCase()}
           index={index}
-          toggle={toggleModal}
-          eventFunc={type === 'done' ? moveTask : removeTask}
+          toggle={toggleModalConfirm}
+          eventFunc={type === 'move' ? moveTask : removeTask}
+        /> : null
+      }
+      {
+        isOpenForm ?
+        <Form
+          type={status.toLowerCase()}
+          index={index}
+          value={value}
+          toggle={toggleModalForm}
+          eventFunc={editTask}
         /> : null
       }
     </List>

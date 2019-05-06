@@ -8,8 +8,8 @@ import {
 } from './styles'
 
 
-const Card = ({ toggle, index=null, eventFunc }) => {
-  const [input, setInput] = useState('')
+const Card = ({ toggle, index=null, value='', type, eventFunc }) => {
+  const [input, setInput] = useState(value)
 
   useEffect(() => {
     document.addEventListener('keydown', keyFunction, false)
@@ -31,7 +31,7 @@ const Card = ({ toggle, index=null, eventFunc }) => {
 
   const confirmEvent = () => {
     if (input !== '') {
-      eventFunc({ index, input })
+      eventFunc({ index, input, type })
       toggle()
     } else {
       alert('Field is empty')

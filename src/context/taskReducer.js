@@ -35,6 +35,12 @@ const toggleStatus = (state) => {
   return { ...state, status }
 }
 
+const editTask = (state, { index, input, type }) => {
+  let temp = state[type]
+  temp[index] = input
+  return { ...state, [type]: temp }
+}
+
 export const taskReducer = (state, { type, payload }) => {
   switch(type) {
     case 'addTask':
@@ -47,6 +53,8 @@ export const taskReducer = (state, { type, payload }) => {
       return toggleStatus(state)
     case 'moveTask':
       return moveTask(state, payload)
+    case 'editTask':
+      return editTask(state, payload)
     default:
       return state
   }
