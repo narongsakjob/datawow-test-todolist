@@ -1,4 +1,12 @@
 import arrayMove from 'array-move'
+import {
+  ADD_TASK,
+  REMOVE_TASK,
+  EDIT_TASK,
+  SORT_TASK,
+  MOVE_TASK,
+  TOGGLE_STATUS
+} from './actions'
 
 const addTask = (state, { input }) => {
   let tempCurrent = state.current
@@ -43,17 +51,17 @@ const editTask = (state, { index, input, type }) => {
 
 export const taskReducer = (state, { type, payload }) => {
   switch(type) {
-    case 'addTask':
+    case ADD_TASK:
       return addTask(state, payload)
-    case 'removeTask':
+    case REMOVE_TASK:
       return removeTask(state, payload)
-    case 'sortTask':
+    case SORT_TASK:
       return sortTask(state, payload)
-    case 'toggleStatus':
+    case TOGGLE_STATUS:
       return toggleStatus(state)
-    case 'moveTask':
+    case MOVE_TASK:
       return moveTask(state, payload)
-    case 'editTask':
+    case EDIT_TASK:
       return editTask(state, payload)
     default:
       return state
