@@ -8,7 +8,7 @@ export const ContainerWrapper = styled.div`
   width: 100%;
   height: 100%;
   z-index: 3;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 `
 
 export const Container = styled.div`
@@ -23,7 +23,6 @@ export const BodyContainer = styled.div`
   left: 50%;
   top: 50%;
   text-align: center;
-  border-radius: 5px;
   z-index: 3;
   padding: 16px;
 `
@@ -34,48 +33,52 @@ export const Body = ({
   height='200px',
   styles={
     backgroundColor: '#fff',
-    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.9)'
+    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.9)',
+    borderRadius: '5px'
   }
 }) => (
   <BodyContainer style={{
     width,
     height,
-    ...styles,
   }}>
-    {children}
+    <div style={{ width: '100%', height: '100%', padding: '15px',...styles }}>
+      {children}
+    </div>
   </BodyContainer>
 )
 
 export const Title = styled.h1`
   color: #000;
   font-weight: 100;
+  margin: 0 0 20px 0;
 `
 
 export const Button = styled.button`
   outline: none;
-  transition: background-color 0.2s;
   background-color: #000;
   color: #fff;
   padding: 10px;
   cursor: pointer;
   border-radius: 5px;
-  border: 1px solid #8a8a8a;
   user-select: none;
   display: inline-block;
+  border: none;
   margin: 0 10px;
+
   &:hover {
-    opacity: 0.7;
+    opacity: 0.6;
   }
 `
 
 export const Input = styled.textarea`
   display: block;
   margin: 20px auto;
-  border-width: 0 0 4px 0;
   color: #8a8a8a;
   font-size: 18px;
   resize: none;
-  padding: 3px 15px;
+  padding: 5px 15px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9);
+
   &:focus {
     outline: none;
   }

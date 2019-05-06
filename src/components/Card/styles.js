@@ -49,25 +49,7 @@ export const Icon = styled.img`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.4);
     cursor: pointer;
-  }
-`
-
-export const DoneButton = styled.button`
-  background-color: #000;
-  color: #fff;
-  border-radius: 6px;
-  padding: 8px;
-  border: 0;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    transform: scale(1.2);
-    cursor: pointer;
-  }
-
-  &:focus {
-    outline: none;
   }
 `
